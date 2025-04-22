@@ -20,10 +20,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install selenium webdriver-manager
           
-      - name: Set up ChromeDriver
-        uses: nanasess/setup-chromedriver@v1
-        with:
-          chromedriver-version: 'latest'
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          google-chrome --version
+          
+      - name: Set up ChromeDriver (via webdriver-manager)
+        run: |
+          python -c "from webdriver_manager.chrome import ChromeDriverManager; ChromeDriverManager().install()"
           
       - name: Run script
         run: python forrm_filler.py
